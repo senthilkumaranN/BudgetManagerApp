@@ -1,0 +1,24 @@
+# Root Node modules (if any)
+node_modules/
+
+# Backend
+Backend/node_modules/
+Backend/.env
+
+# React Native (Android build and IDE files)
+bugetmanger/node_modules/
+bugetmanger/android/.gradle/
+bugetmanger/android/app/build/
+bugetmanger/android/build/
+bugetmanger/.idea/
+bugetmanger/.vscode/
+bugetmanger/.env
+*.iml
+
+# macOS
+.DS_Store
+
+# npm logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
