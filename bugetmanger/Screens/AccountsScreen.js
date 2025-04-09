@@ -8,7 +8,7 @@ const AccountsScreen = () => {
 
   const fetchAllData = async () => {
     try {
-      const response = await axios.get('http://10.0.2.2:3000/api/expense/get');
+      const response = await axios.get('https://budgetmanagerapp.onrender.com/api/expense/get');
       setExpenses(response.data);
     } catch (error) {
       console.log('FetchAllData', error);

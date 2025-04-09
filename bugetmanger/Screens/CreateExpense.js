@@ -144,7 +144,7 @@ const CreateExpense = () => {
       };
 
       const res = await axios.post(
-        'http://10.0.2.2:3000/api/expense/add',
+        'https://budgetmanagerapp.onrender.com/api/expense/add',
         expense,
       );
 

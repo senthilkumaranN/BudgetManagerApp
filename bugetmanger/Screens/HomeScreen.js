@@ -51,7 +51,7 @@ const HomeScreen = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        'http://10.0.2.2:3000/api/expense/getMonth',
+        'https://budgetmanagerapp.onrender.com/api/expense/getMonth',
         {
           params: {date},
         },
@@ -206,7 +206,7 @@ const HomeScreen = () => {
       );
 
       axios
-        .delete('http://10.0.2.2:3000/api/expense/delete', {
+        .delete('https://budgetmanagerapp.onrender.com/api/expense/delete', {
           params: {day: formattedDate},
         })
         .then(res => {
