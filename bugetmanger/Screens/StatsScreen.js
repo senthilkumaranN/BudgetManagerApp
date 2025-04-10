@@ -1,4 +1,11 @@
-import {View, Text, SafeAreaView, Pressable} from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  Pressable,
+  RefreshControl,
+  ScrollView,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import moment from 'moment';
@@ -12,6 +19,7 @@ const StatsScreen = () => {
   const [option, setOption] = useState('Stats');
   const [expenses, setExpenses] = useState([]);
   const date = currentDate.format('MMMM YYYY');
+  const [refreshing, setRefreshing] = useState(false);
 
   const handlePrevMonth = () => {
     setCurrentDate(prevDate => moment(prevDate).subtract(1, 'month'));
@@ -24,6 +32,12 @@ const StatsScreen = () => {
   useEffect(() => {
     fetchData();
   }, [currentDate]);
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await fetchData(); // 🔁 your data loading function
+    setRefreshing(false);
+  };
 
   const fetchData = async () => {
     try {
@@ -199,7 +213,11 @@ const StatsScreen = () => {
   };
 
   const Income = () => (
-    <View style={{backgroundColor: 'white'}}>
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+      style={{backgroundColor: 'white'}}>
       <View>
         {option == 'Budget' && (
           <View>
@@ -268,11 +286,15 @@ const StatsScreen = () => {
           </View>
         )}
       </View>
-    </View>
+    </ScrollView>
   );
 
   const Expense = () => (
-    <View style={{backgroundColor: 'white'}}>
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+      style={{backgroundColor: 'white'}}>
       <View>
         {option == 'Budget' && (
           <View>
@@ -341,7 +363,7 @@ const StatsScreen = () => {
           </View>
         )}
       </View>
-    </View>
+    </ScrollView>
   );
 
   return (

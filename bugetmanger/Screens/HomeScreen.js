@@ -4,6 +4,7 @@ import {
   SafeAreaView,
   Pressable,
   ScrollView,
+  RefreshControl,
   Dimensions,
   FlatList,
   Image,
@@ -29,6 +30,7 @@ const HomeScreen = () => {
   const date = currentDate.format('MMMM YYYY');
   const [modalVisible, setModalVisible] = useState(false);
   const [currentData, setCurrentData] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
 
   const day = moment(currentData?.item?.date).format('DD'); //10
   const monthYear = moment(currentData?.item?.date).format('MM YYYY');
@@ -61,6 +63,12 @@ const HomeScreen = () => {
     } catch (error) {
       console.log('Error', error);
     }
+  };
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await fetchData(); // your API or data reloading function
+    setRefreshing(false);
   };
 
   const totalExpense = expenses
@@ -430,7 +438,10 @@ const HomeScreen = () => {
 
         {/* Daily */}
         {option == 'Daily' && (
-          <ScrollView>
+          <ScrollView
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }>
             <View>
               {Object.keys(groupedExpense).map((item, index) => {
                 const totalExpense = groupedExpense[item]
